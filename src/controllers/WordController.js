@@ -2,7 +2,6 @@ const Word = require("../models/Word");
 
 /**
  * CREATE WORD
- * (Only logged-in user, auto assigns createdBy)
  */
 exports.createWord = async (req, res) => {
   try {
@@ -45,7 +44,7 @@ exports.getWords = async (req, res) => {
 };
 
 /**
- * FETCH SINGLE WORD (ONLY IF USER CREATED IT)
+ * FETCH SINGLE WORD
  */
 exports.getWordById = async (req, res) => {
   try {
@@ -74,7 +73,7 @@ exports.getWordById = async (req, res) => {
 };
 
 /**
- * UPDATE WORD (ONLY IF USER CREATED IT)
+ * UPDATE WORD
  */
 exports.updateWord = async (req, res) => {
   try {
@@ -97,6 +96,35 @@ exports.updateWord = async (req, res) => {
     res.json({
       success: true,
       data: updated
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      error: err.message
+    });
+  }
+};
+
+/**
+ * DELETE WORD (ONLY IF USER CREATED IT)
+ */
+exports.deleteWord = async (req, res) => {
+  try {
+    const deleted = await Word.findOneAndDelete({
+      _id: req.params.id,
+      createdBy: req.user.id
+    });
+
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        message: "Word not found or access denied"
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Word deleted successfully"
     });
   } catch (err) {
     res.status(500).json({

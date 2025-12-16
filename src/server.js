@@ -11,6 +11,7 @@ app.use(express.json());
 
 app.use("/api/auth", require("./route/AuthRoute"));
 app.use("/api/words", require("./route/WordRoute"));
+app.use("/api/pdf", require("./route/PDFRoute"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
