@@ -1,6 +1,9 @@
 const Word = require("../models/Word");
 
-// CREATE WORD
+/**
+ * CREATE WORD
+ * (Only logged-in user, auto assigns createdBy)
+ */
 exports.createWord = async (req, res) => {
   try {
     const word = await Word.create({
@@ -8,7 +11,7 @@ exports.createWord = async (req, res) => {
       createdBy: req.user.id
     });
 
-    res.json({
+    res.status(201).json({
       success: true,
       data: word
     });
@@ -20,10 +23,14 @@ exports.createWord = async (req, res) => {
   }
 };
 
-// FETCH ALL WORDS
+/**
+ * FETCH ALL WORDS (ONLY CREATED BY USER)
+ */
 exports.getWords = async (req, res) => {
   try {
-    const words = await Word.find().sort({ sNo: 1 });
+    const words = await Word.find({
+      createdBy: req.user.id
+    }).sort({ sNo: 1 });
 
     res.json({
       success: true,
@@ -37,16 +44,22 @@ exports.getWords = async (req, res) => {
   }
 };
 
-// FETCH SINGLE WORD
+/**
+ * FETCH SINGLE WORD (ONLY IF USER CREATED IT)
+ */
 exports.getWordById = async (req, res) => {
   try {
-    const word = await Word.findById(req.params.id);
+    const word = await Word.findOne({
+      _id: req.params.id,
+      createdBy: req.user.id
+    });
 
-    if (!word)
+    if (!word) {
       return res.status(404).json({
         success: false,
-        message: "Word not found"
+        message: "Word not found or access denied"
       });
+    }
 
     res.json({
       success: true,
@@ -60,14 +73,26 @@ exports.getWordById = async (req, res) => {
   }
 };
 
-// UPDATE WORD
+/**
+ * UPDATE WORD (ONLY IF USER CREATED IT)
+ */
 exports.updateWord = async (req, res) => {
   try {
-    const updated = await Word.findByIdAndUpdate(
-      req.params.id,
+    const updated = await Word.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        createdBy: req.user.id
+      },
       req.body,
-      { new: true }
+      { new: true, runValidators: true }
     );
+
+    if (!updated) {
+      return res.status(404).json({
+        success: false,
+        message: "Word not found or access denied"
+      });
+    }
 
     res.json({
       success: true,
