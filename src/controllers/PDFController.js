@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 const Word = require("../models/Word");
-const PDFTemplate = require("../templates/PDFTemplate");
+const PDFTemplate = require("../utils/PDFTemplate");
 
 exports.generateWordsPDF = async (req, res) => {
   let browser;
