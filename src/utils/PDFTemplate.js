@@ -1,28 +1,36 @@
 module.exports = function PDFTemplate(words) {
 
-    const tableRows = words.map(word => {
-      // verbs (past, present, future)
-      if (word.meanings?.length) {
-        return `
+  const tableRows = words.map(word => {
+    // verbs (past, present, future)
+    if (word.meanings?.length) {
+      return `
 <tr>
   <td class="sno">${word.sNo}</td>
   <td class="arabic">
-    ${word.meanings.map(m => m.arabic).join("<br>")}
+    <div class="line-wrapper">
+      ${word.meanings.map(m => `<div>${m.arabic}</div>`).join("")}
+    </div>
   </td>
   <td class="english">
-    ${word.meanings.map(m => m.english).join("<br>")}
+    <div class="line-wrapper">
+      ${word.meanings.map(m => `<div>${m.english}</div>`).join("")}
+    </div>
   </td>
   <td class="tamil">
-    ${word.meanings.map(m => m.tamil).join("<br>")}
+    <div class="line-wrapper">
+      ${word.meanings.map(m => `<div>${m.tamil}</div>`).join("")}
+    </div>
   </td>
   <td class="note">
-    ${word.meanings.map(m => m.tense).join("<br>")}
+    <div class="line-wrapper">
+      ${word.meanings.map(m => `<div>${m.tense}</div>`).join("")}
+    </div>
   </td>
 </tr>`;
-      }
+    }
 
-      // nouns / single word
-      return `
+    // nouns / single word
+    return `
 <tr>
   <td class="sno">${word.sNo}</td>
   <td class="arabic">${word.rootWord}</td>
@@ -30,10 +38,10 @@ module.exports = function PDFTemplate(words) {
   <td class="tamil">${word.rootWord}</td>
   <td class="note">${word.note}</td>
 </tr>`;
-    }).join("");
+  }).join("");
 
-    // 3. Full table HTML
-    const tableHTML = `
+  // 3. Full table HTML
+  const tableHTML = `
 <table>
   <tr>
     <th class="sno">s.no</th>
@@ -75,15 +83,23 @@ module.exports = function PDFTemplate(words) {
     text-align: center;
   }
 
+    th {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+  }
+
   .sno {
     font-family: 'Poppins', sans-serif;
     text-align: center;
+    font-size: 13px;
     width: 60px;
   }
 
   .arabic {
     font-family: 'Scheherazade New', serif;
-    font-size: 22px;
+    font-size: 16px;
     direction: rtl;
     text-align: center;
     line-height: 1.6;
@@ -92,20 +108,37 @@ module.exports = function PDFTemplate(words) {
   .english {
     font-family: 'Sawarabi Gothic', sans-serif;
     text-align: center;
+    font-size: 14px;
     line-height: 1.8;
   }
 
   .tamil {
     font-family: 'Poppins', sans-serif;
+    font-size: 14px;
     text-align: center;
-    line-height: 1.8;
+    line-height: 1.2;
   }
 
   .note {
     font-family: 'Poppins', sans-serif;
     text-align: center;
+    font-size: 14px;
+    font-weight: 500;
     width: 120px;
   }
+
+  /* New flex wrapper for even spacing of meanings */
+  .line-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 72px; /* adjust based on number of lines */
+  }
+
+  .line-wrapper div {
+    text-align: center;
+  }
+
 </style>
 </head>
 

@@ -46,10 +46,10 @@ exports.generateWordsPDF = async (req, res) => {
       format: "A4",
       printBackground: true,
       margin: {
-        top: "20px",
-        bottom: "20px",
-        left: "20px",
-        right: "20px"
+        top: "10px",
+        bottom: "10px",
+        left: "10px",
+        right: "10px"
       }
     });
 
