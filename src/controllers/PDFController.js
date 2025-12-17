@@ -6,7 +6,6 @@ exports.generateWordsPDF = async (req, res) => {
   let browser;
 
   try {
-    // 1. Fetch words of logged-in user, sorted by sNo
     const words = await Word.find({
       createdBy: req.user.id
     }).sort({ sNo: 1 });
@@ -18,18 +17,31 @@ exports.generateWordsPDF = async (req, res) => {
       });
     }
 
-    // 4. Wrap with template
+    // 2. Generate HTML
     const finalHTML = PDFTemplate(words);
 
-    // 5. Puppeteer
+    // 3. Launch Puppeteer (WINDOWS SAFE)
     browser = await puppeteer.launch({
-      headless: "new",
+      headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
 
     const page = await browser.newPage();
-    await page.setContent(finalHTML, { waitUntil: "networkidle0" });
 
+    // 4. Load HTML
+    await page.setContent(finalHTML, {
+      waitUntil: "domcontentloaded"
+    });
+
+    await page.emulateMediaType("screen");
+
+    // 5. Ensure table is rendered
+    await page.waitForSelector("table");
+
+    // Small delay for fonts/layout
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // 6. Generate PDF
     const pdfBuffer = await page.pdf({
       format: "A4",
       printBackground: true,
@@ -43,7 +55,7 @@ exports.generateWordsPDF = async (req, res) => {
 
     await browser.close();
 
-    // 6. Send PDF
+    // 7. Send PDF
     res.set({
       "Content-Type": "application/pdf",
       "Content-Disposition": "attachment; filename=arabic-vocabulary.pdf",
@@ -53,6 +65,8 @@ exports.generateWordsPDF = async (req, res) => {
     res.send(pdfBuffer);
 
   } catch (err) {
+    console.error("PDF GENERATION ERROR 👉", err);
+
     if (browser) await browser.close();
 
     res.status(500).json({

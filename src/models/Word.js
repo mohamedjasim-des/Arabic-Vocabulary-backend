@@ -4,7 +4,6 @@ const TenseSchema = new mongoose.Schema(
   {
     tense: {
       type: String,
-      enum: ["past", "present", "future"],
       required: true
     },
     arabic: { type: String, required: true },
