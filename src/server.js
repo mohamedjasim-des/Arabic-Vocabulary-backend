@@ -1,3 +1,6 @@
+// 🔴 MUST be first
+process.env.PUPPETEER_CACHE_DIR = "/opt/render/.cache/puppeteer";
+
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -6,10 +9,15 @@ const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 
 dotenv.config();
-const app = express();
-app.use(cors({ origin: process.env.CLIENT_URI, credentials: true }));
-app.use(bodyParser.json());
 
+const app = express();
+
+app.use(cors({
+  origin: process.env.CLIENT_URI,
+  credentials: true
+}));
+
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 connectDB();
