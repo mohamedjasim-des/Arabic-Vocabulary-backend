@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+const executablePath = puppeteer.executablePath();
 const Word = require("../models/Word");
 const PDFTemplate = require("../utils/PDFTemplate");
 
@@ -19,8 +20,10 @@ exports.generateWordsPDF = async (req, res) => {
 
     browser = await puppeteer.launch({
       headless: "new",
+      executablePath,
       args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
+
 
     const page = await browser.newPage();
 
