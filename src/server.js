@@ -1,8 +1,3 @@
-if (process.env.RENDER) {
-  process.env.PUPPETEER_CACHE_DIR = "/opt/render/.cache/puppeteer";
-}
-
-
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
