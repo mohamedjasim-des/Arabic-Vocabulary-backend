@@ -61,7 +61,7 @@ module.exports = function PDFTemplate(words) {
 <meta charset="UTF-8" />
 <title>Arabic Vocabulary</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Sawarabi+Gothic&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Sawarabi+Gothic&family=Poppins:wght@400;500&family=Noto+Sans+Tamil:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
   body { margin: 20px; }
@@ -79,14 +79,8 @@ module.exports = function PDFTemplate(words) {
 
   th {
     font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    text-align: center;
-  }
-
-    th {
-    font-family: 'Poppins', sans-serif;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 400;
     text-align: center;
   }
 
@@ -94,12 +88,14 @@ module.exports = function PDFTemplate(words) {
     font-family: 'Poppins', sans-serif;
     text-align: center;
     font-size: 13px;
+    font-weight: 500;
     width: 60px;
   }
 
   .arabic {
     font-family: 'Scheherazade New', serif;
     font-size: 16px;
+    font-weight: 500;
     direction: rtl;
     text-align: center;
     line-height: 1.6;
@@ -108,22 +104,25 @@ module.exports = function PDFTemplate(words) {
   .english {
     font-family: 'Sawarabi Gothic', sans-serif;
     text-align: center;
+    font-weight: 400;
     font-size: 14px;
     line-height: 1.8;
   }
 
   .tamil {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    text-align: center;
-    line-height: 1.2;
-  }
+  font-family: 'Poppins', 'Noto Sans Tamil', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.3;
+}
+
 
   .note {
     font-family: 'Poppins', sans-serif;
     text-align: center;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     width: 120px;
   }
 
