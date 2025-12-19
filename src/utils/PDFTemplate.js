@@ -79,8 +79,14 @@ module.exports = function PDFTemplate(words) {
 
   th {
     font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    text-align: center;
+  }
+
+    th {
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     text-align: center;
   }
 
@@ -88,14 +94,12 @@ module.exports = function PDFTemplate(words) {
     font-family: 'Poppins', sans-serif;
     text-align: center;
     font-size: 13px;
-    font-weight: 500;
     width: 60px;
   }
 
   .arabic {
     font-family: 'Scheherazade New', serif;
     font-size: 16px;
-    font-weight: 500;
     direction: rtl;
     text-align: center;
     line-height: 1.6;
@@ -104,7 +108,6 @@ module.exports = function PDFTemplate(words) {
   .english {
     font-family: 'Sawarabi Gothic', sans-serif;
     text-align: center;
-    font-weight: 400;
     font-size: 14px;
     line-height: 1.8;
   }
@@ -112,7 +115,6 @@ module.exports = function PDFTemplate(words) {
   .tamil {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
-    font-weight: 300;
     text-align: center;
     line-height: 1.2;
   }
@@ -121,7 +123,7 @@ module.exports = function PDFTemplate(words) {
     font-family: 'Poppins', sans-serif;
     text-align: center;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     width: 120px;
   }
 
