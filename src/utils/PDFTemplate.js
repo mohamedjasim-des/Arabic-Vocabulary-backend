@@ -78,7 +78,7 @@ module.exports = function PDFTemplate(words) {
   }
 
   th {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Noto Sans Tamil', sans-serif;
     font-size: 16px;
     font-weight: 400;
     text-align: center;
@@ -110,13 +110,12 @@ module.exports = function PDFTemplate(words) {
   }
 
   .tamil {
-  font-family: 'Poppins', 'Noto Sans Tamil', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  text-align: center;
-  line-height: 1.3;
-}
-
+    font-family: 'Poppins', 'Noto Sans Tamil', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.3;
+  }
 
   .note {
     font-family: 'Poppins', sans-serif;
