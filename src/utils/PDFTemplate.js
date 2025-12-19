@@ -118,7 +118,6 @@ module.exports = function PDFTemplate(words) {
   .tamil {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
-    font-weight: 400;
     text-align: center;
     line-height: 1.2;
   }
